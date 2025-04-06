@@ -1,4 +1,4 @@
-![](assets/icon.svg)
+![](rescuetime/icon.jpg)
 
 #  chocolatey-rescuetime
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>{{id}}</id>
+    <title>{{title}}</title>
+    <version>{{version}}</version>
+    <authors>{{author}}</authors>
+    <owners>kiwiman</owners>
+    <summary>With so many distractions and possibilities in your digital life, it's easy to get scattered. RescueTime helps you understand your daily habits so you can focus and be more productive.</summary>
+    <description>A personal analytics service that shows you how you spend your time and provides tools to help you be more productive.</description>
+    <iconUrl>https://cdn.rawgit.com/dittodhole/chocolatey-rescuetime/$branch$/assets/icon.svg</iconUrl>
+    <packageSourceUrl>https://github.com/dittodhole/chocolatey-rescuetime</packageSourceUrl>
+    <projectUrl>https://www.rescuetime.com/</projectUrl>
+    <licenseUrl>https://help.rescuetime.com/article/387-rescuetime-plans</licenseUrl>
+    <docsUrl>https://help.rescuetime.com/category/201-getting-started</docsUrl>
+    <mailingListUrl>https://www.rescuetime.com/contact</mailingListUrl>
+    <tags>rescuetime admin</tags>
+    <copyright>{{copyright}} {{author}}</copyright>
+    <dependencies>
+      <dependency id="chocolatey-core.extension" version="1.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\chocolateyinstall.ps1" target="tools" />
+    <file src="tools\chocolateyuninstall.ps1" target="tools" />
+  </files>
+</package>
