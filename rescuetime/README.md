@@ -6,32 +6,22 @@
 
 ## Installing
 
-### [myget.org][1]
+### [chocolatey.org][1]
 
-[![](https://img.shields.io/appveyor/ci/dittodhole/chocolatey-rescuetime/develop.svg)][2]
-[![](https://img.shields.io/myget/dittodhole/vpre/rescuetime.svg)][1]
+[![](https://img.shields.io/appveyor/ci/dittodhole/chocolatey-rescuetime/master.svg)][2]
+[![](https://img.shields.io/chocolatey/v/rescuetime.svg)][1]
 
-```cmd
-choco install rescuetime --pre --source https://www.myget.org/F/dittodhole/api/v2
-```
-
-### [chocolatey.org][3]
-
-[![](https://img.shields.io/appveyor/ci/dittodhole/chocolatey-rescuetime/master.svg)][4]
-[![](https://img.shields.io/chocolatey/v/rescuetime.svg)][3]
-
-```cmd
+```powershell
 choco install rescuetime
 ```
 
 ## Developing & Building
 
-```cmd
-> git clone https://github.com/dittodhole/chocolatey-rescuetime.git
-> cd chocolatey-rescuetime/
-chocolatey-rescuetime> cd build
-chocolatey-rescuetime/build> npm install
-chocolatey-rescuetime/build> npm run-script build
+```powershell
+> git clone https://github.com/shengzhiheng/chocolatey-packages.git
+> cd chocolatey-packages/rescuetime/
+rescuetime> Set-ExecutionPolicy RemoteSigned -Scope CurrentUser # Allow execution of powershell script
+rescuetime> .\build.ps1
 ```
 
 This will create the following artifacts:
@@ -54,7 +44,5 @@ This project follows the [all-contributors](https://github.com/kentcdodds/all-co
 
 chocolatey-rescuetime is published under [WTFNMFPLv3](https://github.com/dittodhole/WTFNMFPLv3).
 
-[1]: https://www.myget.org/feed/dittodhole/package/nuget/rescuetime
-[2]: https://ci.appveyor.com/project/dittodhole/chocolatey-rescuetime/branch/develop
-[3]: https://chocolatey.org/packages/rescuetime
-[4]: https://ci.appveyor.com/project/dittodhole/chocolatey-rescuetime/branch/master
+[1]: https://chocolatey.org/packages/rescuetime
+[2]: https://ci.appveyor.com/project/dittodhole/chocolatey-rescuetime/branch/master
