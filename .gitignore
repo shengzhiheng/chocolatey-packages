@@ -1,4 +1,3 @@
-*.nupkg
-src/rescuetime.nuspec
-src/tools/chocolateyinstall.ps1
-src/tools/chocolateyuninstall.ps1
+rescuetime/*.nupkg
+rescuetime/*.nuspec
+rescuetime/*.ps1
