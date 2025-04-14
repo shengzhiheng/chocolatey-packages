@@ -1,0 +1,19 @@
+$ErrorActionPreference = "Stop";
+
+$packageArgs = @{
+  packageName = $env:ChocolateyPackageName
+  fileType = "exe"
+  silentArgs = "/VERYSILENT"
+  url = "{{Url}}"
+  checksum = "{{Checksum}}"
+  checksumType = "sha256"
+};
+
+Install-ChocolateyPackage @packageArgs
+
+$installLocation = Get-AppInstallLocation "quantum*"
+if ($installLocation) {
+  Write-Host "$packageName installed to '$installLocation'"
+} else {
+  Write-Warning "Can't find install location"
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>{{PackageName}}</id>
+    <title>{{Title}}</title>
+    <version>{{Version}}</version>
+    <authors>{{Author}}</authors>
+    <owners>kiwiman</owners>
+    <summary>Automatic qBittorrent Port Updater for ProtonVPN.</summary>
+    <description>This application will monitor the Windows ProtonVPN client log files for port changes and pass them via the qBittorrent WebUI.</description>
+    <iconUrl>https://github.com/UHAXM1/Quantum/blob/main/images/Q_32.ico</iconUrl>
+    <packageSourceUrl>https://github.com/shengzhiheng/chocolatey-packages/tree/develop/quantum</packageSourceUrl>
+    <projectUrl>https://github.com/UHAXM1/Quantum</projectUrl>
+    <licenseUrl>https://github.com/UHAXM1/Quantum/blob/main/LICENSE</licenseUrl>
+    <docsUrl>https://github.com/UHAXM1/Quantum/blob/main/README.md</docsUrl>
+    <tags>{{PackageName}}</tags>
+    <copyright>{{Copyright}} {{Author}}</copyright>
+    <dependencies>
+      <dependency id="chocolatey-core.extension" version="1.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\chocolateyinstall.ps1" target=".\" />
+    <file src=".\chocolateyuninstall.ps1" target=".\" />
+  </files>
+</package>
