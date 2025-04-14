@@ -1,6 +1,6 @@
-![](rescuetime/icon.jpg)
+<img src="icon.jpg" alt="drawing" width="128"/>
 
-#  chocolatey-rescuetime
+# chocolatey-rescuetime
 
 > A personal analytics service that shows you how you spend your time and provides tools to help you be more productive.
 
@@ -26,7 +26,7 @@ rescuetime> .\build.ps1
 
 This will create the following artifacts:
 
-- `artifacts/rescuetime.{version}.nupkg`
+- `.\rescuetime.{version}.nupkg`
 
 ## Contributors
 

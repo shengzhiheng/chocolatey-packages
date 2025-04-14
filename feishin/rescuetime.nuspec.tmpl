@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>{{PackageName}}</id>
+    <title>{{Title}}</title>
+    <version>{{Version}}</version>
+    <authors>{{Author}}</authors>
+    <owners>kiwiman</owners>
+    <summary>A modern self-hosted music player. </summary>
+    <description>A modern self-hosted music player. </description>
+    <iconUrl>https://github.com/jeffvli/feishin/blob/development/assets/icons/256x256.png</iconUrl>
+    <packageSourceUrl>https://github.com/shengzhiheng/chocolatey-packages/tree/develop/feishin</packageSourceUrl>
+    <projectUrl>https://github.com/jeffvli/feishin</projectUrl>
+    <licenseUrl>https://github.com/jeffvli/feishin/blob/development/LICENSE</licenseUrl>
+    <docsUrl>https://github.com/jeffvli/feishin/blob/development/README.md</docsUrl>
+    <tags>{{PackageName}}</tags>
+    <copyright>{{Copyright}} {{Author}}</copyright>
+    <dependencies>
+      <dependency id="chocolatey-core.extension" version="1.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\chocolateyinstall.ps1" target=".\" />
+    <file src=".\chocolateyuninstall.ps1" target=".\" />
+  </files>
+</package>
