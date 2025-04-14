@@ -1,0 +1,19 @@
+$ErrorActionPreference = "Stop";
+
+$packageArgs = @{
+  packageName = $env:ChocolateyPackageName
+  fileType = "exe"
+  silentArgs = "/S"
+  url = "{{Url}}"
+  checksum = "{{Checksum}}"
+  checksumType = "sha256"
+};
+
+Install-ChocolateyPackage @packageArgs
+
+$installLocation = Get-AppInstallLocation "audioling*"
+if ($installLocation) {
+  Write-Host "$packageName installed to '$installLocation'"
+} else {
+  Write-Warning "Can't find install location"
+}

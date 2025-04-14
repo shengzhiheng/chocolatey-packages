@@ -8,7 +8,7 @@ A modern self-hosted music player.
 
 ### [chocolatey.org][1]
 
-[![](https://img.shields.io/chocolatey/v/feishin.svg)][1]
+[![](https://img.shields.io/chocolatey/v/feishin)][1]
 
 ```powershell
 choco install feishin
@@ -32,3 +32,5 @@ To push to chocolatey community package list, run:
 feishin> choco apikey add -k <your key here> -s https://push.chocolatey.org/
 feishin> choco push --source https://push.chocolatey.org/
 ```
+
+[1]: https://chocolatey.org/packages/feishin

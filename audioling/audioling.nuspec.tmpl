@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>{{PackageName}}</id>
+    <title>{{Title}}</title>
+    <version>{{Version}}</version>
+    <authors>{{Author}}</authors>
+    <owners>kiwiman</owners>
+    <summary>Audio player with a focus on self-hosted music server support. </summary>
+    <description>Audio player with a focus on self-hosted music server support.</description>
+    <iconUrl>https://raw.githubusercontent.com/shengzhiheng/chocolatey-packages/refs/heads/develop/audioling/icon.png</iconUrl>
+    <packageSourceUrl>https://github.com/shengzhiheng/chocolatey-packages/tree/develop/audioling</packageSourceUrl>
+    <projectUrl>https://github.com/audioling/audioling/tree/main</projectUrl>
+    <licenseUrl>https://github.com/audioling/audioling/blob/main/LICENSE</licenseUrl>
+    <docsUrl>https://github.com/audioling/audioling/blob/main/README.md</docsUrl>
+    <tags>{{PackageName}}</tags>
+    <copyright>{{Copyright}} {{Author}}</copyright>
+    <dependencies>
+      <dependency id="chocolatey-core.extension" version="1.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\chocolateyinstall.ps1" target=".\" />
+    <file src=".\chocolateyuninstall.ps1" target=".\" />
+  </files>
+</package>

@@ -1,17 +1,17 @@
 # build.ps1
-$PackageName = "feishin"
-$Author = "jeffvli"
+$PackageName = "audioling"
+$Author = "audioling"
 $ApiUrl = "https://api.github.com/repos/$Author/$PackageName/releases/latest"
 $Headers = @{"User-Agent" = "PowerShell"}
 try {
     $Response = Invoke-RestMethod -Uri $ApiUrl -Headers $Headers
     # The tag_name typically holds the release version/tag
-    $Version = $Response.tag_name -replace '^v',''
+    $Version = $Response.tag_name -replace '^audioling-v',''
 } catch {
     Write-Host "Failed to get latest release: $($_.Exception.Message)"
 }
-$InstallerUrl = "https://github.com/jeffvli/feishin/releases/download/v$Version/Feishin-$Version-win-x64.exe"
-$TempFile = "$env:TEMP\FeishinInstaller.exe"
+$InstallerUrl = "https://github.com/audioling/audioling/releases/download/audioling-v$Version/audioling_${Version}_x64-setup.exe"
+$TempFile = "$env:TEMP\AudiolingInstaller.exe"
 
 # Step 1: Download installer
 Write-Host "Downloading $InstallerUrl..."
@@ -35,12 +35,11 @@ $uninstallTemplate = "./chocolateyuninstall.ps1.tmpl"
 $uninstallScript = "./chocolateyuninstall.ps1"
 
 (Get-Content $uninstallTemplate) `
-  -replace "{{Title}}", $Title `
   | Set-Content $uninstallScript
 
 # Step 4: Generate .nuspec from template
-$nuspecTemplate = "./feishin.nuspec.tmpl"
-$nuspecFile = "./feishin.nuspec"
+$nuspecTemplate = "./audioling.nuspec.tmpl"
+$nuspecFile = "./audioling.nuspec"
 $nuspecContent = Get-Content $nuspecTemplate -Raw
 $nuspecContent = $nuspecContent `
   -replace "{{PackageName}}", $PackageName `
