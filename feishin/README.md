@@ -26,3 +26,9 @@ feishin> .\build.ps1
 This will create the following artifacts:
 
 - `.\feishin.{version}.nupkg`
+
+To push to chocolatey community package list, run:
+```powershell
+feishin> choco apikey add -k <your key here> -s https://push.chocolatey.org/
+feishin> choco push --source https://push.chocolatey.org/
+```

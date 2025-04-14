@@ -35,6 +35,7 @@ $uninstallTemplate = "./chocolateyuninstall.ps1.tmpl"
 $uninstallScript = "./chocolateyuninstall.ps1"
 
 (Get-Content $uninstallTemplate) `
+  -replace "{{Title}}", $Title `
   | Set-Content $uninstallScript
 
 # Step 4: Generate .nuspec from template
