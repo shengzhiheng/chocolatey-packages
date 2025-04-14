@@ -1,0 +1,41 @@
+name: Build and Test Chocolatey Packages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-push:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        package:
+          - feishin
+          - audioling
+          - quantum
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build package
+        shell: pwsh
+        working-directory: ./${{ matrix.package }}
+        run: |
+          Write-Host "Building package $env:ChocolateyPackageName ..."
+          .\build.ps1
+
+
+      - name: Test install package
+        shell: pwsh
+        working-directory: ./${{ matrix.package }}
+        run: |
+          Write-Host "Test installing package $env:ChocolateyPackageName ..."
+          choco install ${{ matrix.package }} -s . --force -y --debug --verbose
+
+      - name: Test uninstall package
+        shell: pwsh
+        working-directory: ./${{ matrix.package }}
+        run: |
+          Write-Host "Test uninstalling package $env:ChocolateyPackageName ..."
+          choco uninstall ${{ matrix.package }} -y --debug --verbose

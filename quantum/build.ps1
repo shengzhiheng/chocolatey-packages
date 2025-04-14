@@ -10,7 +10,7 @@ try {
 } catch {
     Write-Host "Failed to get latest release: $($_.Exception.Message)"
 }
-$InstallerUrl = "https://github.com/$Author/$PackageName/releases/download/v$Version/Quantum_Setup.exe"
+$InstallerUrl = "https://github.com/$Author/$PackageName/releases/download/v${Version}/Quantum_Setup.exe"
 $TempFile = "$env:TEMP\QuantumInstaller.exe"
 
 # Step 1: Download installer
