@@ -1,4 +1,4 @@
-name: Build and Test Chocolatey Packages
+name: Build, Test and Push Chocolatey Packages
 
 on:
   push:
@@ -39,3 +39,11 @@ jobs:
         run: |
           Write-Host "Test uninstalling package $env:ChocolateyPackageName ..."
           choco uninstall ${{ matrix.package }} -y --debug --verbose
+
+      - name: Push package to Chocolatey
+        shell: pwsh
+        working-directory: ./${{ matrix.package }}
+        env:
+          CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+        run: |
+          choco push --source https://push.chocolatey.org/ --apikey $env:CHOCO_API_KEY
