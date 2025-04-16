@@ -1,5 +1,5 @@
 # build.ps1
-$PackageName = "Quantum"
+$PackageName = "quantum"
 $Author = "UHAXM1"
 $ApiUrl = "https://api.github.com/repos/$Author/$PackageName/releases/latest"
 $Headers = @{"User-Agent" = "PowerShell"}
