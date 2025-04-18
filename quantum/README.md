@@ -1,4 +1,4 @@
-<img src="icon.ico" alt="drawing" width="128"/>
+<img src="icon.png" alt="drawing" width="128"/>
 
 # chocolatey-quantum
 
@@ -8,7 +8,7 @@ Automatic qBittorrent port updater for ProtonVPN.
 
 ### [chocolatey.org][1]
 
-[![](https://img.shields.io/chocolatey/v/audioling.svg)][1]
+[![](https://img.shields.io/chocolatey/v/quantum.svg)][1]
 
 ```powershell
 choco install quantum
