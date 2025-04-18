@@ -11,10 +11,6 @@ on:
           - feishin
           - audioling
           - quantum
-      prerelease:
-        description: 'Treat as prerelease? (true/false)'
-        required: false
-        default: 'false'
 
 jobs:
   publish:
@@ -27,21 +23,18 @@ jobs:
         shell: pwsh
         working-directory: ./${{ inputs.package }}
         run: |
-          Write-Host "Building package $env:ChocolateyPackageName ..."
           ./build.ps1
 
       - name: Install test
         shell: pwsh
         working-directory: ./${{ inputs.package }}
         run: |
-          Write-Host "Test installing package $env:ChocolateyPackageName ..."
           choco install ${{ inputs.package }} -s . --force -y --debug --verbose
 
       - name: Uninstall test
         shell: pwsh
         working-directory: ./${{ inputs.package }}
         run: |
-          Write-Host "Test uninstalling package $env:ChocolateyPackageName ..."
           choco uninstall ${{ inputs.package }} -y --debug --verbose
 
       - name: Push to Chocolatey
@@ -50,7 +43,4 @@ jobs:
         env:
           CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
         run: |
-          Write-Host "Pushing package $env:ChocolateyPackageName to chocolatey ..."
-          choco push --source https://push.chocolatey.org/ `
-                     --apikey $env:CHOCO_API_KEY `
-                     ${{ inputs.prerelease == 'true' && '--prerelease' || '' }}
+          choco push --source https://push.chocolatey.org/ --apikey $env:CHOCO_API_KEY
