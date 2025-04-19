@@ -8,7 +8,9 @@ Automatic qBittorrent port updater for ProtonVPN.
 
 ### [chocolatey.org][1]
 
-[![](https://img.shields.io/chocolatey/v/quantum.svg)][1]
+[![](https://img.shields.io/chocolatey/v/quantum)][1]
+[![](https://img.shields.io/chocolatey/dt/quantum)][1]
+[![](https://img.shields.io/github/actions/workflow/status/shengzhiheng/chocolatey-packages/chocolatey-test.yml?branch=main&query=matrix.package:quantum)][2]
 
 ```powershell
 choco install quantum
@@ -34,3 +36,4 @@ quantum> choco push --source https://push.chocolatey.org/
 ```
 
 [1]: https://chocolatey.org/packages/quantum
+[2]: https://github.com/shengzhiheng/chocolatey-packages/actions/workflows/chocolatey-test.yml

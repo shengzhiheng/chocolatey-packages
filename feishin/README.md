@@ -9,6 +9,8 @@ A modern self-hosted music player.
 ### [chocolatey.org][1]
 
 [![](https://img.shields.io/chocolatey/v/feishin)][1]
+[![](https://img.shields.io/chocolatey/dt/feishin)][1]
+[![](https://img.shields.io/github/actions/workflow/status/shengzhiheng/chocolatey-packages/chocolatey-test.yml?branch=main&query=matrix.package:feishin)][2]
 
 ```powershell
 choco install feishin
@@ -34,3 +36,4 @@ feishin> choco push --source https://push.chocolatey.org/
 ```
 
 [1]: https://chocolatey.org/packages/feishin
+[2]: https://github.com/shengzhiheng/chocolatey-packages/actions/workflows/chocolatey-test.yml

@@ -8,7 +8,9 @@ Audio player with a focus on self-hosted music server support.
 
 ### [chocolatey.org][1]
 
-[![](https://img.shields.io/chocolatey/v/audioling.svg)][1]
+[![](https://img.shields.io/chocolatey/v/audioling)][1]
+[![](https://img.shields.io/chocolatey/dt/audioling)][1]
+[![](https://img.shields.io/github/actions/workflow/status/shengzhiheng/chocolatey-packages/chocolatey-test.yml?branch=main&query=matrix.package:audioling)][2]
 
 ```powershell
 choco install audioling
@@ -34,3 +36,4 @@ audioling> choco push --source https://push.chocolatey.org/
 ```
 
 [1]: https://chocolatey.org/packages/audioling
+[2]: https://github.com/shengzhiheng/chocolatey-packages/actions/workflows/chocolatey-test.yml
