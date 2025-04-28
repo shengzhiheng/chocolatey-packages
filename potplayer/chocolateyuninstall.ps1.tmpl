@@ -1,0 +1,20 @@
+﻿$ErrorActionPreference = 'Stop'
+
+# launch the official uninstaller
+$exe = Join-Path $env:ProgramFiles 'DAUM\PotPlayer\uninstall.exe'
+$proc = Start-Process $exe -ArgumentList '/S' -PassThru
+
+# wait up to 30s for the “PotPlayer-64 bit Uninstall” dialog
+$ui = New-Object -ComObject WScript.Shell
+$sw = [System.Diagnostics.Stopwatch]::StartNew()
+while ($sw.Elapsed.TotalSeconds -lt 30) {
+  if ($ui.AppActivate('PotPlayer-64 bit Uninstall')) {
+    Start-Sleep -Milliseconds 200
+    $ui.SendKeys('%Y')    # Alt+Y = “Yes”
+    break
+  }
+  Start-Sleep -Milliseconds 250
+}
+
+# finish up
+$proc.WaitForExit()

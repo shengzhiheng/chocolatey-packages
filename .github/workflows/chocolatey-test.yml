@@ -18,6 +18,7 @@ jobs:
           - audioling
           - quantum
           - rescuetime
+          - potplayer
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

@@ -12,6 +12,7 @@ on:
           - audioling
           - quantum
           - rescuetime
+          - potplayer
 
 jobs:
   publish:

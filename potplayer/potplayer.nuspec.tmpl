@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>{{id}}</id>
+    <title>{{title}}</title>
+    <version>{{version}}</version>
+    <authors>{{author}}</authors>
+    <owners>kiwiman</owners>
+    <summary>PotPlayer is a multimedia software player developed for the Microsoft Windows operating system by South Korean Internet company Kakao.</summary>
+    <description>Potplayer is a powerful All-in-one multimedia software player playing most of the media formats developed for the Microsoft Windows operating system by South Korean leading Internet Company Kakao. It provides the maximum performance with the minimum resource using DVXA,CUDA,QuickSync. It supports various types of 3D glasses, various subtitle formats (SMI, SRT,DVD,Blu-ray/ASS, SSA animation).</description>
+    <iconUrl>https://cdn.jsdelivr.net/gh/shengzhiheng/chocolatey-packages@latest/potplayer/icon.png</iconUrl>
+    <packageSourceUrl>https://github.com/shengzhiheng/chocolatey-packages/tree/main/potplayer</packageSourceUrl>
+    <projectUrl>https://potplayer.daum.net/</projectUrl>
+    <licenseUrl>https://potplayer.daum.net/publicRelation</licenseUrl>
+    <releaseNotes>https://t1.daumcdn.net/potplayer/PotPlayer/v4/Update2/UpdateEng.html</releaseNotes>
+    <tags>video</tags>
+    <copyright>{{copyright}} {{author}}</copyright>
+    <dependencies>
+      <dependency id="chocolatey-core.extension" version="1.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\chocolateyinstall.ps1" target=".\" />
+    <file src=".\chocolateyuninstall.ps1" target=".\" />
+  </files>
+</package>

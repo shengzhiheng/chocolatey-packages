@@ -8,8 +8,9 @@
 
 ### [chocolatey.org][1]
 
-[![](https://img.shields.io/appveyor/ci/dittodhole/chocolatey-rescuetime/master.svg)][2]
-[![](https://img.shields.io/chocolatey/v/rescuetime.svg)][1]
+[![](https://img.shields.io/chocolatey/v/rescuetime)][1]
+[![](https://img.shields.io/chocolatey/dt/rescuetime)][1]
+[![](https://img.shields.io/github/actions/workflow/status/shengzhiheng/chocolatey-packages/chocolatey-test.yml?branch=main&query=matrix.package:rescuetime)][2]
 
 ```powershell
 choco install rescuetime
@@ -45,4 +46,4 @@ This project follows the [all-contributors](https://github.com/kentcdodds/all-co
 chocolatey-rescuetime is published under [WTFNMFPLv3](https://github.com/dittodhole/WTFNMFPLv3).
 
 [1]: https://chocolatey.org/packages/rescuetime
-[2]: https://ci.appveyor.com/project/dittodhole/chocolatey-rescuetime/branch/master
+[2]: https://github.com/shengzhiheng/chocolatey-packages/actions/workflows/chocolatey-test.yml
