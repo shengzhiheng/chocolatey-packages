@@ -10,6 +10,7 @@ on:
         options:
           - feishin
           - audioling
+          - ampcast
           - quantum
           - rescuetime
           - potplayer

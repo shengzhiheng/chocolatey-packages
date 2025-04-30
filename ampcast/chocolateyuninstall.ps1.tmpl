@@ -1,0 +1,33 @@
+﻿$ErrorActionPreference = "Stop";
+
+$packageArgs = @{
+  packageName = $env:ChocolateyPackageName
+  fileType = "exe"
+};
+
+[array]$key = Get-UninstallRegistryKey -SoftwareName "ampcast*"
+if ($key.Count -eq 1) {
+  if ($quietUninstallString -match '^"([^"]+)"\s*(.*)$') {
+    $exePath = $matches[1]
+    $arguments = $matches[2]
+
+    # For Chocolatey, supply the exe path cleanly and set the silentArgs separately:
+    $packageArgs = @{
+        packageName   = 'ampcast'
+        fileType      = 'EXE'
+        silentArgs    = $arguments
+        validExitCodes= @(0)
+    }
+    Uninstall-ChocolateyPackage @packageArgs -File $exePath
+}
+else {
+    Write-Host "The QuietUninstallString did not match the expected format."
+}
+} elseif ($key.Count -eq 0) {
+  Write-Warning "$packageName has already been uninstalled by other means."
+} elseif ($key.Count -gt 1) {
+  Write-Warning "$($key.Count) matches found!"
+  Write-Warning "To prevent accidental data loss, no programs will be uninstalled."
+  Write-Warning "Please alert package maintainer the following keys were matched:"
+  $key | % {Write-Warning "- $($_.DisplayName)"}
+}

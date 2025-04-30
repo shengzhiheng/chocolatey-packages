@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>{{PackageName}}</id>
+    <title>{{Title}}</title>
+    <version>{{Version}}</version>
+    <authors>{{Author}}</authors>
+    <owners>kiwiman</owners>
+    <summary>Ampcast music player.</summary>
+    <description>A music player inspired by Winamp.</description>
+    <iconUrl>https://cdn.jsdelivr.net/gh/rekkyrosso/ampcast/app/assets/icons/ampcast256x256.png</iconUrl>
+    <packageSourceUrl>https://github.com/shengzhiheng/chocolatey-packages/tree/main/ampcast</packageSourceUrl>
+    <projectUrl>https://ampcast.app/</projectUrl>
+    <projectSourceUrl>https://github.com/rekkyrosso/ampcast</projectSourceUrl>
+    <licenseUrl>https://github.com/rekkyrosso/ampcast/blob/main/LICENSE</licenseUrl>
+    <docsUrl>https://github.com/rekkyrosso/ampcast/blob/main/README.md</docsUrl>
+    <mailingListUrl>https://github.com/rekkyrosso/ampcast/discussions</mailingListUrl>
+    <releaseNotes>https://github.com/rekkyrosso/ampcast/releases</releaseNotes>
+    <tags>{{PackageName}} music</tags>
+    <copyright>{{Copyright}} {{Author}}</copyright>
+    <dependencies>
+      <dependency id="chocolatey-core.extension" version="1.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\chocolateyinstall.ps1" target=".\" />
+    <file src=".\chocolateyuninstall.ps1" target=".\" />
+  </files>
+</package>
