@@ -48,24 +48,28 @@ jobs:
         if: ${{ !contains(needs.filter-changes.outputs.changed, matrix.package) }}
         run: |
           Write-Host "No changes for ${{ matrix.package }} – skipping."
-          Exit 0 
+          Exit 78 
 
       - name: Checkout repository
+        if: contains(needs.filter-changes.outputs.changed, matrix.package)
         uses: actions/checkout@v3
 
       - name: Build package
+        if: contains(needs.filter-changes.outputs.changed, matrix.package)
         shell: pwsh
         working-directory: ./${{ matrix.package }}
         run: |
           .\build.ps1
 
       - name: Test install package
+        if: contains(needs.filter-changes.outputs.changed, matrix.package)
         shell: pwsh
         working-directory: ./${{ matrix.package }}
         run: |
           choco install ${{ matrix.package }} -s . --force -y --debug --verbose
 
       - name: Test uninstall package
+        if: contains(needs.filter-changes.outputs.changed, matrix.package)
         shell: pwsh
         working-directory: ./${{ matrix.package }}
         run: |
