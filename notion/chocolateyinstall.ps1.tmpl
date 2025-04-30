@@ -1,0 +1,19 @@
+$ErrorActionPreference = "Stop";
+
+$packageArgs = @{
+  packageName = $env:ChocolateyPackageName
+  fileType = "exe"
+  silentArgs = "/VERYSILENT /NORESTART /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS"
+  url = "{{url}}"
+  checksum = "{{checksum}}"
+  checksumType = "sha256"
+};
+
+Install-ChocolateyPackage @packageArgs
+
+$installLocation = Get-AppInstallLocation "notion*"
+if ($installLocation) {
+  Write-Host "$packageName installed to '$installLocation'"
+} else {
+  Write-Warning "Can't find install location"
+}

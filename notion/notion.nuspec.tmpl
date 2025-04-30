@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>{{id}}</id>
+    <title>{{title}}</title>
+    <version>{{version}}</version>
+    <authors>{{author}}</authors>
+    <owners>kiwiman</owners>
+    <summary>Your connected workspace for wiki, docs and projects.</summary>
+    <description>Notion is a productivity and note-taking web application developed by Notion Labs, Inc. It is an online-only organizational tool with options for both free and paid subscriptions. </description>
+    <iconUrl>https://cdn.jsdelivr.net/gh/shengzhiheng/chocolatey-packages@latest/notion/icon.png</iconUrl>
+    <packageSourceUrl>https://github.com/shengzhiheng/chocolatey-packages/tree/main/notion</packageSourceUrl>
+    <projectUrl>https://www.notion.com/</projectUrl>
+    <licenseUrl>https://www.notion.so/notion/Terms-and-Privacy-28ffdd083dc3473e9c2da6ec011b58ac</licenseUrl>
+    <docsUrl>https://www.notion.com/product/docs</docsUrl>
+    <mailingListUrl>https://www.notion.com/blog</mailingListUrl>
+    <tags>notion productivity notes</tags>
+    <copyright>{{copyright}} {{author}}</copyright>
+    <dependencies>
+      <dependency id="chocolatey-core.extension" version="1.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\chocolateyinstall.ps1" target=".\" />
+    <file src=".\chocolateyuninstall.ps1" target=".\" />
+  </files>
+</package>

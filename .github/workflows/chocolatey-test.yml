@@ -27,6 +27,7 @@ jobs:
             quantum:      "quantum/**"
             rescuetime:   "rescuetime/**"
             potplayer:    "potplayer/**"
+            notion:       "notion/**"
 
   build-test:
     needs: filter-changes
@@ -40,6 +41,7 @@ jobs:
           - quantum
           - rescuetime
           - potplayer
+          - notion
 
     steps:
       - name: Skip unchanged packages
@@ -47,7 +49,7 @@ jobs:
         run: |
           Write-Host "No changes for ${{ matrix.package }} – skipping."
           Exit 0 
-      
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
