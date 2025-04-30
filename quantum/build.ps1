@@ -2,7 +2,10 @@
 $PackageName = "quantum"
 $Author = "UHAXM1"
 $ApiUrl = "https://api.github.com/repos/$Author/$PackageName/releases/latest"
-$Headers = @{"User-Agent" = "PowerShell"}
+$Headers = @{
+    "User-Agent" = "PowerShell"
+    'Authorization' = $env:GH_TOKEN ? "Bearer $($env:GH_TOKEN)" : $null
+}
 try {
     $Response = Invoke-RestMethod -Uri $ApiUrl -Headers $Headers
     # The tag_name typically holds the release version/tag
