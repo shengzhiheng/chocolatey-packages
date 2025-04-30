@@ -10,7 +10,27 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  filter-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.filter.outputs.changes }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            feishin:      "feishin/**"
+            audioling:    "audioling/**"
+            ampcast:      "ampcast/**"
+            quantum:      "quantum/**"
+            rescuetime:   "rescuetime/**"
+            potplayer:    "potplayer/**"
+
   build-test:
+    needs: filter-changes
+    if: contains(needs.filter-changes.outputs.changed, matrix.package)
     runs-on: windows-latest
     strategy:
       matrix:
