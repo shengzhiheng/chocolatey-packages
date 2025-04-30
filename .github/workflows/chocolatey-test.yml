@@ -28,8 +28,6 @@ jobs:
             rescuetime:   "rescuetime/**"
             potplayer:    "potplayer/**"
             notion:       "notion/**"
-    outputs:
-      changed: ${{ steps.filter.outputs.changes }}
 
   build-test:
     needs: filter-changes
