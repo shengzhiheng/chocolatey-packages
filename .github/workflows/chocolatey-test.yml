@@ -30,7 +30,6 @@ jobs:
 
   build-test:
     needs: filter-changes
-    if: contains(needs.filter-changes.outputs.changed, matrix.package)
     runs-on: windows-latest
     strategy:
       matrix:
@@ -41,7 +40,14 @@ jobs:
           - quantum
           - rescuetime
           - potplayer
+
     steps:
+      - name: Skip unchanged packages
+        if: ${{ !contains(needs.filter-changes.outputs.changed, matrix.package) }}
+        run: |
+          Write-Host "No changes for ${{ matrix.package }} – skipping."
+          Exit 0 
+      
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -50,7 +56,6 @@ jobs:
         working-directory: ./${{ matrix.package }}
         run: |
           .\build.ps1
-
 
       - name: Test install package
         shell: pwsh
