@@ -51,10 +51,11 @@ jobs:
             installer_url: 'https://www.notion.so/desktop/windows/download'
 
     # ── If this is a manual run with "package" chosen, process only that one row ──
-    if: |
-      github.event_name != 'workflow_dispatch' ||
-      inputs.package == '' ||
-      matrix.package == inputs.package
+    if: >-
+      ${{ github.event_name != 'workflow_dispatch'
+      || github.event.inputs.package == ''
+      || github.event.inputs.package == matrix.package }}
+
 
     steps:
     # ────────────────────────────────────────────────────────────────────────────
