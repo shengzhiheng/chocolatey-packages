@@ -67,7 +67,7 @@ jobs:
         if ('${{ matrix.installer_url }}') {
           Write-Host "Downloading installer ${{ matrix.installer_url }}..."
           Invoke-WebRequest -Uri '${{ matrix.installer_url }}' -OutFile installer.exe
-          $ver = ([System.Diagnostics.FileVersionInfo]::GetVersionInfo(installer.exe).FileVersion).Trim()
+          $ver = ([System.Diagnostics.FileVersionInfo]::GetVersionInfo("installer.exe").FileVersion).Trim()
         }
         else {
           Write-Host "Fetching latest GitHub release for ${{ matrix.repo }}..."
