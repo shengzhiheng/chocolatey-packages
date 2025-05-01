@@ -1,0 +1,169 @@
+name: Daily Chocolatey Release
+
+on:
+  # 1 automatic run
+  schedule:
+    - cron: '0 5 * * *'          # every day at 05:00 UTC
+  # 2 manual run
+  workflow_dispatch:
+    inputs:
+      package:                    # choose a single package, or leave blank for "all"
+        description: 'Package to publish (leave empty to process every package in the matrix)'
+        required: false
+        type: choice
+        options:
+          - feishin
+          - audioling
+          - ampcast
+          - quantum
+          - rescuetime
+          - potplayer
+          - notion
+      check_version:              # true= only publish new versions
+        description: 'Check upstream/chocolatey versions first?'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - package:      feishin
+            repo:         jeffvli/feishin
+          - package:      audioling
+            repo:         audioling/audioling
+          - package:      ampcast
+            repo:         rekkyrosso/ampcast
+          - package:      quantum
+            repo:         UHAXM1/Quantum
+          - package:      rescuetime
+            installer_url: 'https://assets.rescuetime.com/installers/RescueTimeInstaller_X.exe'  
+          - package:      potplayer
+            installer_url: 'https://t1.daumcdn.net/potplayer/PotPlayer/Version/Latest/PotPlayerSetup64.exe'
+          - package:      notion
+            installer_url: 'https://www.notion.so/desktop/windows/download'
+
+    # ── If this is a manual run with "package" chosen, process only that one row ──
+    if: |
+      github.event_name != 'workflow_dispatch' ||
+      inputs.package == '' ||
+      matrix.package == inputs.package
+
+    steps:
+    # ────────────────────────────────────────────────────────────────────────────
+    - uses: actions/checkout@v4
+    # ────────────────────────────────────────────────────────────────────────────
+    - name: Get latest upstream version
+      id: get_latest_version
+      shell: pwsh
+      working-directory: ./${{ matrix.package }}
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        if ('${{ matrix.installer_url }}') {
+          Write-Host "Downloading installer ${{ matrix.installer_url }}..."
+          Invoke-WebRequest -Uri '${{ matrix.installer_url }}' -OutFile installer.exe
+          $ver = (Get-Item installer.exe).VersionInfo.ProductVersion
+        }
+        else {
+          Write-Host "Fetching latest GitHub release for ${{ matrix.repo }}..."
+          # Use GH_TOKEN for higher rate limits
+          $headers = @{}
+          if ($env:GH_TOKEN) {
+            $headers = @{
+              'Authorization' = "token $env:GH_TOKEN"
+            }
+          }
+          $resp = Invoke-RestMethod -Uri "https://api.github.com/repos/${{ matrix.repo }}/releases/latest" -Headers $headers
+          $ver = $resp.tag_name -replace '.*v', ''
+        }
+        Write-Host "Upstream version: $ver"
+        echo "ver=$ver" >> $env:GITHUB_OUTPUT
+    # ────────────────────────────────────────────────────────────────────────────
+    - name: Check version and decide whether to publish
+      id: decision
+      shell: pwsh
+      working-directory: ./${{ matrix.package }}
+      run: |
+        $pkg = '${{ matrix.package }}'
+        $upstreamVersion = '${{ steps.get_latest_version.outputs.ver }}'
+        $checkVersion = '${{ inputs.check_version }}' -eq 'true'
+        
+        $publish = 'yes'  # Default to yes
+        
+        if ($checkVersion) {
+          Write-Host "Checking if $pkg version $upstreamVersion exists on Chocolatey..."
+          
+          # Direct check if the specific version exists
+          $url = "https://community.chocolatey.org/api/v2/package/$pkg/$upstreamVersion"
+          $req = [System.Net.HttpWebRequest]::Create($url)
+          $req.Method = 'GET'
+          $req.AllowAutoRedirect = $false
+          
+          try {
+            $resp = $req.GetResponse()
+            $resp.Close()
+            Write-Host "✅ Version $upstreamVersion already exists on Chocolatey. Skipping."
+            $publish = 'no'
+          }
+          catch [System.Net.WebException] {
+            if ($_.Exception.Response.StatusCode -eq 404) {
+              Write-Host "❌ Version $upstreamVersion does not exist on Chocolatey yet. Will publish."
+            }
+            else {
+              Write-Host "Error checking Chocolatey API: $_"
+              Write-Host "⚠️ Proceeding with not publish as fallback."
+              $publish = 'no'
+            }
+          }
+        } else {
+          Write-Host "☞ Version check disabled → forcing publish."
+        }
+
+        # Export to subsequent steps
+        echo "PUBLISH=$publish" >> $env:GITHUB_OUTPUT
+    # ────────────────────────────────────────────────────────────────────────────
+    # ────────────────────────────────────────────────────────────────────────────
+    - name: Build package
+      if: steps.decision.outputs.publish == 'yes'
+      shell: pwsh
+      working-directory: ./${{ matrix.package }}
+      run: |
+        Write-Host "Building package for ${{ matrix.package }}..."
+        .\build.ps1
+    
+    # ────────────────────────────────────────────────────────────────────────────
+    - name: Test installation
+      if: steps.decision.outputs.publish == 'yes'
+      shell: pwsh
+      working-directory: ./${{ matrix.package }}
+      run: |
+        Write-Host "Testing installation..."
+        choco install ${{ matrix.package }} -s . --force -y --debug --verbose
+    
+    # ────────────────────────────────────────────────────────────────────────────
+    - name: Test uninstallation
+      if: steps.decision.outputs.publish == 'yes'
+      shell: pwsh
+      working-directory: ./${{ matrix.package }}
+      run: |
+        Write-Host "Testing uninstallation..."
+        choco uninstall ${{ matrix.package }} -y --debug --verbose
+    
+    # ────────────────────────────────────────────────────────────────────────────
+    - name: Push to Chocolatey
+      if: steps.decision.outputs.publish == 'yes'
+      shell: pwsh
+      working-directory: ./${{ matrix.package }}
+      env:
+        CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+      run: |
+        Write-Host "Pushing to Chocolatey..."
+        choco push --source https://push.chocolatey.org/ --apikey $env:CHOCO_API_KEY
