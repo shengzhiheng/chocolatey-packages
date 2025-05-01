@@ -1,4 +1,4 @@
-name: Daily Chocolatey Release
+name: Release - Automatic and manual test and release
 
 on:
   # 1 automatic run
