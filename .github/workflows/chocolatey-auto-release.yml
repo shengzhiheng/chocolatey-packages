@@ -50,13 +50,6 @@ jobs:
           - package:      notion
             installer_url: 'https://www.notion.so/desktop/windows/download'
 
-    # ── If this is a manual run with "package" chosen, process only that one row ──
-    if: >-
-      ${{ github.event_name != 'workflow_dispatch'
-      || github.event.inputs.package == ''
-      || github.event.inputs.package == matrix.package }}
-
-
     steps:
     # ────────────────────────────────────────────────────────────────────────────
     - uses: actions/checkout@v4
@@ -65,6 +58,9 @@ jobs:
       id: get_latest_version
       shell: pwsh
       working-directory: ./${{ matrix.package }}
+      if: github.event_name != 'workflow_dispatch' ||
+          inputs.package == '' ||
+          matrix.package == inputs.package
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
@@ -92,12 +88,15 @@ jobs:
       id: decision
       shell: pwsh
       working-directory: ./${{ matrix.package }}
+      if: github.event_name != 'workflow_dispatch' ||
+          inputs.package == '' ||
+          matrix.package == inputs.package
       run: |
         $pkg = '${{ matrix.package }}'
         $upstreamVersion = '${{ steps.get_latest_version.outputs.ver }}'
         $checkVersion = '${{ inputs.check_version }}' -eq 'true'
         
-        $publish = 'yes'  # Default to yes
+        $publish = 'no'  # Default to no
         
         if ($checkVersion) {
           Write-Host "Checking if $pkg version $upstreamVersion exists on Chocolatey..."
@@ -112,20 +111,20 @@ jobs:
             $resp = $req.GetResponse()
             $resp.Close()
             Write-Host "✅ Version $upstreamVersion already exists on Chocolatey. Skipping."
-            $publish = 'no'
           }
           catch [System.Net.WebException] {
             if ($_.Exception.Response.StatusCode -eq 404) {
               Write-Host "❌ Version $upstreamVersion does not exist on Chocolatey yet. Will publish."
+              $publish = 'yes'
             }
             else {
               Write-Host "Error checking Chocolatey API: $_"
               Write-Host "⚠️ Proceeding with not publish as fallback."
-              $publish = 'no'
             }
           }
         } else {
           Write-Host "☞ Version check disabled → forcing publish."
+          $publish = 'yes'
         }
 
         # Export to subsequent steps
