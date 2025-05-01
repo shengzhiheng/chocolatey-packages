@@ -3,7 +3,7 @@ name: Daily Chocolatey Release
 on:
   # 1 automatic run
   schedule:
-    - cron: '0 5 * * *'          # every day at 05:00 UTC
+    - cron: '0 7 * * *'          # every day at 07:00 UTC
   # 2 manual run
   workflow_dispatch:
     inputs:
@@ -94,8 +94,9 @@ jobs:
       run: |
         $pkg = '${{ matrix.package }}'
         $upstreamVersion = '${{ steps.get_latest_version.outputs.ver }}'
-        $checkVersion = '${{ inputs.check_version }}' -eq 'true'
-        
+        $checkVersion = ('${{ github.event.inputs.check_version }}' -eq 'true') `
+            -or ('${{ github.event_name }}' -ne 'workflow_dispatch')
+
         $publish = 'no'  # Default to no
         
         if ($checkVersion) {
