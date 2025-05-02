@@ -82,7 +82,8 @@ jobs:
           $ver = $resp.tag_name -replace '.*v', ''
         }
         Write-Host "Upstream version: $ver"
-        echo "ver=$ver" >> $env:GITHUB_OUTPUT
+        $normalized = ([version]$ver).ToString() -replace '\.0$'
+        echo "ver=$normalized" >> $env:GITHUB_OUTPUT
     # ────────────────────────────────────────────────────────────────────────────
     - name: Check version and decide whether to publish
       id: decision
