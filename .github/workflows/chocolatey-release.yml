@@ -11,7 +11,9 @@ on:
         description: 'Package to publish (leave empty to process every package in the matrix)'
         required: false
         type: choice
+        default: all
         options:
+          - all
           - feishin
           - audioling
           - ampcast
@@ -59,8 +61,8 @@ jobs:
       shell: pwsh
       working-directory: ./${{ matrix.package }}
       if: github.event_name != 'workflow_dispatch' ||
-          inputs.package == '' ||
-          matrix.package == inputs.package
+          github.event.inputs.package == 'all' ||
+          matrix.package == github.event.inputs.package
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
@@ -110,8 +112,8 @@ jobs:
       shell: pwsh
       working-directory: ./${{ matrix.package }}
       if: github.event_name != 'workflow_dispatch' ||
-          inputs.package == '' ||
-          matrix.package == inputs.package
+          github.event.inputs.package == 'all' ||
+          matrix.package == github.event.inputs.package
       run: |
         $pkg = '${{ matrix.package }}'
         $upstreamVersion = '${{ steps.get_latest_version.outputs.ver }}'
