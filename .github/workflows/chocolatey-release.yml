@@ -82,8 +82,27 @@ jobs:
           $ver = $resp.tag_name -replace '.*v', ''
         }
         Write-Host "Upstream version: $ver"
-        #  remove trailing 0s and last .0 in version number
-        $normalized = ([version]$ver).ToString(3)
+
+        # --- helper --------------------------------------------------------
+        function Normalize-Version([string]$v) {
+            $parts = $v -split '\.'
+
+            # ensure we have Major.Minor.Patch
+            while ($parts.Count -lt 3) { $parts += '0' }
+
+            # if there is a 4th part, keep it only when it is non‑zero
+            if ($parts.Count -ge 4) {
+                if ([int]$parts[3] -eq 0) {          # 3.1.1.0  → drop .0
+                    $parts = $parts[0..2]
+                }
+                # else leave 3.1.1.3 untouched
+            }
+
+            return ($parts -join '.')
+        }
+        # -------------------------------------------------------------------
+
+        $normalized = Normalize-Version $ver
         echo "ver=$normalized" >> $env:GITHUB_OUTPUT
     # ────────────────────────────────────────────────────────────────────────────
     - name: Check version and decide whether to publish
