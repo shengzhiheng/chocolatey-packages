@@ -30,6 +30,7 @@ This will create the following artifacts:
 - `.\rescuetime.{version}.nupkg`
 
 ## Contributors
+This repo is a fork of [chocolatey-rescuetime](https://github.com/dittodhole/chocolatey-rescuetime/).
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
