@@ -19,8 +19,8 @@ on:
           - ampcast
           - quantum
           - potplayer
+          - notion
           # - rescuetime
-          # - notion
       check_version:              # true= only publish new versions
         description: 'Check upstream/chocolatey versions first?'
         required: false
@@ -47,10 +47,10 @@ jobs:
             repo:         UHAXM1/Quantum
           - package:      potplayer
             installer_url: 'https://t1.daumcdn.net/potplayer/PotPlayer/Version/Latest/PotPlayerSetup64.exe'
+          - package:      notion
+            installer_url: 'https://www.notion.so/desktop/windows/download'
           # - package:      rescuetime
-          #   installer_url: 'https://assets.rescuetime.com/installers/RescueTimeInstaller_X.exe'  
-          # - package:      notion
-          #   installer_url: 'https://www.notion.so/desktop/windows/download'
+          #   installer_url: 'https://assets.rescuetime.com/installers/RescueTimeInstaller_X.exe'
 
     steps:
     # ────────────────────────────────────────────────────────────────────────────
