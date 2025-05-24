@@ -1,20 +1,20 @@
-﻿$ErrorActionPreference = "Stop";
-
-$packageArgs = @{
-  packageName = $env:ChocolateyPackageName
-  fileType = "exe"
-};
+﻿$packageArgs = @{
+    packageName   = $env:ChocolateyPackageName
+    fileType      = "exe"
+    silentArgs    = "/S"
+    file          = ""  # Will be populated below
+}
 
 [array]$key = Get-UninstallRegistryKey -SoftwareName "notion*"
 if ($key.Count -eq 1) {
-  $key | % {
-    $packageArgs.file = "$($_.UninstallString)"
-    $packageArgs.silentArgs = "/S"
+    # Strip quotes and "/currentuser" from UninstallString
+    $uninstallPath = $key[0].UninstallString -replace '"', '' -replace '/currentuser', ''
+    $packageArgs.file = $uninstallPath.Trim()
 
     Uninstall-ChocolateyPackage @packageArgs
-  }
-} elseif ($key.Count -eq 0) {
-  Write-Warning "$packageName has already been uninstalled by other means."
+}
+elseif ($key.Count -eq 0) {
+    Write-Warning "Notion is already uninstalled."
 } elseif ($key.Count -gt 1) {
   Write-Warning "$($key.Count) matches found!"
   Write-Warning "To prevent accidental data loss, no programs will be uninstalled."
