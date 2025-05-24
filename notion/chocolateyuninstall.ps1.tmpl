@@ -9,7 +9,7 @@ $packageArgs = @{
 if ($key.Count -eq 1) {
   $key | % {
     $packageArgs.file = "$($_.UninstallString)"
-    $packageArgs.silentArgs = "/SILENT"
+    $packageArgs.silentArgs = "/S"
 
     Uninstall-ChocolateyPackage @packageArgs
   }
